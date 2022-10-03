@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-//import Todotable from './components/Todolist';
+
 
 function App() {
   const [todo, setTodo] = useState({desc: '', date: ''})
@@ -21,6 +21,7 @@ function App() {
   
   return (
     <div className="App">
+      <p>Add todo:</p>
      <form onSubmit={addTodo}>
       <label>Date:</label>
       <input type="date" name="date" value={todo.date} onChange={inputChanged}/>
