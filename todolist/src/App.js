@@ -4,6 +4,11 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { useRef } from 'react';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+
+
 
 function App() {
   const [todo, setTodo] = useState({desc: '', date: '', priority: ''});
@@ -38,7 +43,16 @@ function App() {
 
   return (
     <div className="App">
-      <input type="date" name="date" value={todo.date} onChange={inputChanged} />
+      <h2 class="App-header">Todolist</h2>
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+      <MobileDatePicker
+          label="Date"
+          inputFormat="DD/MM/YYYY"
+          value={todo.date}
+          onChange={changeDate => setTodo({...todo, date: changeDate})}
+          renderInput={(params) => <input {...params} />}
+      />
+      </LocalizationProvider>
       <input type="text" name="desc" value={todo.desc} onChange={inputChanged} />
       <input type="text" name="priority" value={todo.priority} onChange={inputChanged} />
       <button onClick={addTodo}>Add</button>
@@ -48,7 +62,7 @@ function App() {
         className="ag-theme-material"
         style={{
           height: '700px',
-          width: '50%',
+          width: '70%',
           margin: 'auto'}}
         >
           <AgGridReact
