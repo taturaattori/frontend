@@ -7,12 +7,15 @@ import { useRef } from 'react';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import Tabs from'@mui/material/Tabs';
+import Tab from'@mui/material/Tab';
 
 
 
 function App() {
   const [todo, setTodo] = useState({desc: '', date: '', priority: ''});
   const [todos, setTodos] = useState([]);
+  const [value, setValue] = useState('one');
   const gridRef = useRef();
 
   const addTodo = (event) => {
@@ -34,6 +37,8 @@ function App() {
     
   }
 
+  const handleChange = (event, value) => {  setValue(value);};
+
   const columns = [
     {headerName: 'Date', field: 'date', sortable: true, filter: true, floatingFilter: true},
     {headerName: 'Description', field: 'desc', sortable: true, filter: true, floatingFilter: true},
@@ -44,6 +49,12 @@ function App() {
   return (
     <div className="App">
       <h2 class="App-header">Todolist</h2>
+      <Tabs value={value} onChange={handleChange}>
+        <Tab value="one"label="Home" />
+        <Tab value="two"label="Todos" />
+      </Tabs>
+      {value === 'one' && <div>Welcome!</div>}
+      {value === 'two' && <div>
       <LocalizationProvider dateAdapter={AdapterMoment}>
       <MobileDatePicker
           label="Date"
@@ -75,6 +86,7 @@ function App() {
           >
           </AgGridReact>
       </div>
+      </div>}
 
     </div>
   );
